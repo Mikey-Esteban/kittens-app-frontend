@@ -55,8 +55,6 @@ const Kitten = (props) => {
         setEdit(false)
       })
       .catch( resp => console.log(resp) )
-
-    console.log('ohhhh you pressed the save icon');
   }
 
   return edit ?
@@ -75,7 +73,7 @@ const Kitten = (props) => {
       <p>Cuteness rating {kitten.cuteness}</p>
       <ButtonsWrapper>
         <FontAwesomeIcon onClick={handleEdit} className="fa-icon" icon={faEdit} />
-        <FontAwesomeIcon className="fa-icon" icon={faTrash} />
+        <FontAwesomeIcon onClick={() => props.handleDelete(props.kittenId)} className="fa-icon" icon={faTrash} />
       </ButtonsWrapper>
     </Card>
   )

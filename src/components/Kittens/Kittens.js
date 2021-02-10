@@ -28,7 +28,8 @@ const Kittens = () => {
     console.log('ohhhh you pressed the delete icon');
     axios.delete(`http://localhost:3000/api/v1/kittens/${id}`)
       .then( resp => {
-
+        const newKittens = kittens.filter(item => item.id !== id)
+        setKittens(newKittens)
       })
       .catch( resp => console.log(resp) )
   }
