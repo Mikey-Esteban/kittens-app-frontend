@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import Kitten from './Kitten'
 
@@ -11,13 +12,30 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `
 
-const Kittens = (props) => {
+const Kittens = () => {
 
-  const { kittens } = props
+  const [ kittens, setKittens ] = useState([])
+
+  useEffect( () => {
+    axios.get('http://localhost:3000/api/v1/kittens')
+      .then( resp => {
+        setKittens(resp.data.data)
+      })
+      .catch( resp => console.log(resp) )
+  }, [kittens.length])
+
+  const handleDelete = (id) => {
+    console.log('ohhhh you pressed the delete icon');
+    axios.delete(`http://localhost:3000/api/v1/kittens/${id}`)
+      .then( resp => {
+
+      })
+      .catch( resp => console.log(resp) )
+  }
 
   const kittensList = kittens.map( item => {
     return (
-      <Kitten key={item.id} attributes={item.attributes} kittenId={item.id} />
+      <Kitten key={item.id} attributes={item.attributes} kittenId={item.id} handleDelete={handleDelete} />
     )
   })
 
